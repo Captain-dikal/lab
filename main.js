@@ -34,12 +34,20 @@ document.getElementById('mounth').innerText = monthA[DateThis.getMonth()];
 document.getElementById('year').innerText = DateThis.getFullYear();
 var startDate = new Date(DateThis.getFullYear(), DateThis.getMonth(), 1);
 var startpos = startDate.getDay();
-document.querySelector('.mainc[data-week="1"]').querySelector('.td[data-day="'+startpos+'"]').querySelector('h3').textContent="1";
+//document.querySelector('.mainc[data-week="1"]').querySelector('.td[data-day="'+startpos+'"]').querySelector('h3').textContent="1";
+if(startpos==0){
+	startpos=7;
+}
 var i = 1;
 var week = 1;
 var kd =DateThis.daysInMonth();
 l=1;
+if(startpos==7){
+	week++;
+	document.querySelector('.mainc[data-week="1"]').querySelector('.td[data-day="7"]').querySelector('h3').outerHTML=("<h3>1</h3>");
+}
 while(i < (kd+startpos-1)){
+	
 	i++;
 	j=i;
 	if(j%7 == 1){
@@ -48,7 +56,8 @@ while(i < (kd+startpos-1)){
 	while(j>7){
 		j=j-7;
 	}
-	if(l>=startpos){
+	if(l>=(startpos)){
+		console.log(week+" "+j+" "+(l-startpos+2));
 		if((l-startpos+2)==DateThis.getDate()){
 			if(masparty[(DateThis.getMonth())][(l-startpos+2)]==true){
 				document.querySelector('.mainc[data-week="'+week+'"]').querySelector('.td[data-day="'+j+'"]').querySelector('h3').outerHTML=("<h3 class='currentDay party'>"+(l-startpos+2)+"</h3>");
